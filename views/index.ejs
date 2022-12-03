@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat-o</title>
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body>
+    <h1>(Chat-O)nline</h1>
+    <div
+      id="textbox"
+      style="
+        max-width: 800px;
+        height: 400px;
+        overflow: auto;
+        border: 1px solid black;
+      "
+    ></div>
+    <br />
+    <input type="text" id="user" placeholder="User" minlength="3" />
+    <input type="text" id="msg" placeholder="Type a message" minlength="3" />
+    <button onclick="send()">Send</button>
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"
+    integrity="sha512-VJ6+sp2E5rFQk05caiXXzQd1wBABpjEj1r5kMiLmGAAgwPItw1YpqsCCBtq8Yr1x6C49/mTpRdXtq8O2RcZhlQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script>
+    const socket = io("http://localhost:4010");
+    socket.on("chat", (data) => {
+      const chatbox = document.getElementById("textbox");
+      const p = document.createElement("p");
+      p.innerHTML = data.user + ": " + data.msg;
+      chatbox.append(p);
+    });
+    function send() {
+      const user = document.getElementById("user");
+      const msg = document.getElementById("msg");
+      const pError = document.createElement("p")
+      if (user.value.length >= 3 && msg.value.length > 1) {
+        socket.emit("msg", { user: user.value, msg: msg.value });
+        msg.value = "";
+      } else {
+        if (user.value.length == 0) {
+          user.value = "Anonymous";
+        }
+      }
+    }
+
+    window.onkeypress = function (event) {
+      const key = event.key
+      if (key == 'Enter') {
+        send()
+      }
+    }
+  </script>
+</html>

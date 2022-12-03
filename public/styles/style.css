@@ -1,0 +1,49 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: justify;
+}
+body{
+    background-image: url("/images/pexels-miguel-á-padriñán-1111369.jpg");
+    background-size: cover;
+    background-position: center;
+
+}
+#textbox {
+  max-width: 800px;
+  height: 400px;
+  overflow: auto;
+  background-color: rgba(230, 230, 230, 0.5);
+  font-weight: bold;
+  border-radius: 10px;
+  border: 1px solid black;
+  box-shadow: 20px 2px 10px 10px rgb(158, 0, 111);
+}
+
+#user {
+  transition: 0.4s;
+}
+#msg {
+  transition: 0.4s;
+}
+
+#user:focus {
+  background-color: rgb(224, 255, 183);
+  border: 1px solid black;
+  transform: scale(1.05);
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+}
+#msg:focus {
+  background-color: rgb(200, 236, 253);
+  border: 1px solid black;
+  transform: translateY(50px) scale(3);
+  box-shadow: 5px 5px 5px rgb(0, 0, 0);
+}
+button{
+  padding:0px 15px;
+  transition: .4s;
+}
+button:hover{
+  transform: scale(1.2) translateX(15px);
+  background-color: rgba(255, 55, 172, 0);
+}
+
